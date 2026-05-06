@@ -376,7 +376,7 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 28%;
+  object-position: center 18%;
 }
 
 .signal-card {
@@ -715,6 +715,7 @@ h3 {
   .portrait-frame {
     aspect-ratio: 1;
   }
+
 }
 
 @media (prefers-reduced-motion: reduce) {

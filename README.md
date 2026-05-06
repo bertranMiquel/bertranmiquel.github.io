@@ -1,2 +1,3 @@
 Web:
-https://manelgil3.github.io/ManelCV_WEB/
+Set this to your GitHub Pages URL after creating the repository, for example:
+https://bertranMiquel.github.io/bertrans_blog/
