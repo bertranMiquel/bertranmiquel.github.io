@@ -188,6 +188,12 @@ a {
   color: var(--text);
 }
 
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .icon-button,
 .top-button {
   display: grid;
@@ -207,6 +213,10 @@ a {
   padding: 0 13px;
   font-size: 0.78rem;
   font-weight: 800;
+}
+
+.lang-button {
+  min-width: 82px;
 }
 
 .icon-button:hover,
@@ -633,10 +643,14 @@ h3 {
     padding-bottom: 4px;
   }
 
-  .icon-button {
+  .header-actions {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
+  }
+
+  .icon-button {
+    min-width: 62px;
   }
 
   .hero,
@@ -680,6 +694,10 @@ h3 {
 
   .brand span:last-child {
     display: none;
+  }
+
+  .header-actions {
+    gap: 8px;
   }
 
   .section-shell {

@@ -4,12 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta
+    id="metaDescription"
     name="description"
     content="Portfolio of Bertran Miquel Oliver, PhD researcher at the Barcelona Supercomputing Center working on graph neural networks, graph structure, topological rewiring, and AI for biological data."
   />
   <meta name="theme-color" content="#07111f" />
-  <meta property="og:title" content="Bertran Miquel Oliver | Graph Structure and AI Research" />
+  <meta id="metaOgTitle" property="og:title" content="Bertran Miquel Oliver | Graph Structure and AI Research" />
   <meta
+    id="metaOgDescription"
     property="og:description"
     content="PhD researcher at BSC studying graph neural networks, graph rewiring, and AI methods for biological data."
   />
@@ -31,85 +33,90 @@
   </div>
 
   <header class="site-header" id="top">
-    <a class="brand" href="#top" aria-label="Bertran Miquel Oliver home">
+    <a class="brand" href="#top" data-i18n-attr="aria-label:brandAria">
       <span class="brand-mark">BMO</span>
       <span>Bertran Miquel Oliver</span>
     </a>
 
-    <nav class="nav" id="navbar" aria-label="Main navigation">
-      <a href="#about">About</a>
-      <a href="#trajectory">Trajectory</a>
-      <a href="#research">Research</a>
-      <a href="#publications">Publications</a>
-      <a href="#blog">Blog</a>
-      <a href="#contact">Contact</a>
+    <nav class="nav" id="navbar" data-i18n-attr="aria-label:navAria">
+      <a href="#about" data-i18n="navAbout">About</a>
+      <a href="#trajectory" data-i18n="navTrajectory">Trajectory</a>
+      <a href="#research" data-i18n="navResearch">Research</a>
+      <a href="#publications" data-i18n="navPublications">Publications</a>
+      <a href="#blog" data-i18n="navBlog">Blog</a>
+      <a href="#contact" data-i18n="navContact">Contact</a>
     </nav>
 
-    <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle color theme">
-      <span aria-hidden="true">Theme</span>
-    </button>
+    <div class="header-actions">
+      <button class="icon-button lang-button" id="langToggle" type="button" aria-label="Switch to Catalan">
+        <span aria-hidden="true">EN / CA</span>
+      </button>
+      <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle color theme">
+        <span aria-hidden="true" data-i18n="themeLabel">Theme</span>
+      </button>
+    </div>
   </header>
 
   <main>
     <section class="hero section-shell">
       <div class="hero-copy reveal">
-        <p class="eyebrow">PhD Researcher - Graph Neural Networks - AI for Biological Data</p>
-        <h1>Researching graph structure for more capable AI systems.</h1>
-        <p class="hero-lede">
+        <p class="eyebrow" data-i18n="heroEyebrow">PhD Researcher - Graph Neural Networks - AI for Biological Data</p>
+        <h1 data-i18n="heroTitle">Researching graph structure for more capable AI systems</h1>
+        <p class="hero-lede" data-i18n="heroLead">
           I am a PhD researcher in Bioinformatics at the Barcelona Supercomputing Center, working on
           graph neural networks, graph structure, topological rewiring, and AI methods for biological data.
           My work focuses on how structural inductive biases can improve learning, robustness, and long-range
           information flow in modern AI models.
         </p>
 
-        <div class="hero-actions" aria-label="Primary actions">
-          <a class="button primary" href="Bertran_Miquel_Oliver_CV.pdf" download>Download CV</a>
-          <a class="button" href="mailto:bertranmiqueloliver@gmail.com">Contact me</a>
+        <div class="hero-actions" data-i18n-attr="aria-label:heroActionsAria">
+          <a class="button primary" href="Bertran_Miquel_Oliver_CV.pdf" download data-i18n="downloadCv">Download CV</a>
+          <a class="button" href="mailto:bertranmiqueloliver@gmail.com" data-i18n="contactMe">Contact me</a>
           <a class="button ghost" href="https://scholar.google.es/citations?user=lvBDBtgAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>
           <a class="button ghost" href="https://github.com/bertranMiquel" target="_blank" rel="noreferrer">GitHub</a>
           <a class="button ghost" href="https://es.linkedin.com/in/bertran-miquel-oliver" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
 
-        <dl class="hero-stats" aria-label="Professional snapshot">
+        <dl class="hero-stats" data-i18n-attr="aria-label:heroStatsAria">
           <div>
-            <dt>Current role</dt>
-            <dd>PhD Researcher in Bioinformatics at BSC</dd>
+            <dt data-i18n="currentRoleLabel">Current role</dt>
+            <dd data-i18n="currentRoleValue">PhD Researcher in Bioinformatics at BSC</dd>
           </div>
           <div>
-            <dt>Research themes</dt>
-            <dd>GNNs, graph rewiring, topology, biological AI</dd>
+            <dt data-i18n="researchThemesLabel">Research themes</dt>
+            <dd data-i18n="researchThemesValue">GNNs, graph rewiring, topology, biological AI</dd>
           </div>
           <div>
-            <dt>Base</dt>
-            <dd>Barcelona, Spain</dd>
+            <dt data-i18n="baseLabel">Base</dt>
+            <dd data-i18n="baseValue">Barcelona, Spain</dd>
           </div>
         </dl>
       </div>
 
       <div class="hero-visual reveal">
         <div class="portrait-frame">
-          <img src="bertran-profile.jpg" alt="Portrait of Bertran Miquel Oliver" />
+          <img src="bertran-profile.jpg" alt="Portrait of Bertran Miquel Oliver" data-i18n-attr="alt:portraitAlt" />
         </div>
         <div class="signal-card">
           <span class="signal-dot"></span>
-          <p>Current work spans graph neural networks, graph structure interventions, and AI models for complex biological signals.</p>
+          <p data-i18n="signalCard">Current work spans graph neural networks, graph structure interventions, and AI models for complex biological signals</p>
         </div>
       </div>
     </section>
 
     <section class="section-shell intro-grid" id="about">
       <div class="section-heading reveal">
-        <p class="eyebrow">About</p>
-        <h2>Graph learning research with direct AI implications.</h2>
+        <p class="eyebrow" data-i18n="aboutEyebrow">About</p>
+        <h2 data-i18n="aboutTitle">Graph learning research with direct AI implications</h2>
       </div>
       <div class="prose-card reveal">
-        <p>
+        <p data-i18n="aboutBody1">
           My research sits at the intersection of graph representation learning, structural priors, and
           applied AI for scientific problems. I am particularly interested in how graph topology shapes
           model behavior, including information bottlenecks, over-squashing, and the inductive biases that
           make graph-based models more effective.
         </p>
-        <p>
+        <p data-i18n="aboutBody2">
           Alongside graph learning, I work on AI methods for biological data, including recent work connected
           to RNA foundational models. I care about methods that are both theoretically motivated and useful
           in real modeling pipelines.
@@ -119,37 +126,37 @@
 
     <section class="section-shell" id="trajectory">
       <div class="section-heading reveal">
-        <p class="eyebrow">Trajectory</p>
-        <h2>Research direction shaped by graph structure and biological AI.</h2>
+        <p class="eyebrow" data-i18n="trajectoryEyebrow">Trajectory</p>
+        <h2 data-i18n="trajectoryTitle">Research direction shaped by graph structure and biological AI</h2>
       </div>
 
       <div class="timeline">
         <article class="timeline-item reveal">
           <div class="timeline-meta">
-            <span>2024 - Present</span>
-            <strong>Barcelona Supercomputing Center</strong>
+            <span data-i18n="trajectoryRoleDate">2024 - Present</span>
+            <strong data-i18n="trajectoryRoleOrg">Barcelona Supercomputing Center</strong>
           </div>
           <div class="timeline-content">
-            <h3>PhD Researcher in Bioinformatics</h3>
+            <h3 data-i18n="trajectoryRoleTitle">PhD Researcher in Bioinformatics</h3>
             <ul>
-              <li>Researching graph neural networks with emphasis on graph structure and topology-aware modeling.</li>
-              <li>Studying rewiring strategies and structural corrections that improve long-range information flow in GNNs.</li>
-              <li>Applying AI methods to biologically relevant data and representation learning problems.</li>
+              <li data-i18n="trajectoryRoleBullet1">Researching graph neural networks with emphasis on graph structure and topology-aware modeling</li>
+              <li data-i18n="trajectoryRoleBullet2">Studying rewiring strategies and structural corrections that improve long-range information flow in GNNs</li>
+              <li data-i18n="trajectoryRoleBullet3">Applying AI methods to biologically relevant data and representation learning problems</li>
             </ul>
           </div>
         </article>
 
         <article class="timeline-item reveal">
           <div class="timeline-meta">
-            <span>2025 - 2026</span>
-            <strong>Selected research outputs</strong>
+            <span data-i18n="trajectoryOutputDate">2025 - 2026</span>
+            <strong data-i18n="trajectoryOutputOrg">Selected research outputs</strong>
           </div>
           <div class="timeline-content">
-            <h3>Graph learning and RNA modeling publications</h3>
+            <h3 data-i18n="trajectoryOutputTitle">Graph learning and RNA modeling publications</h3>
             <ul>
-              <li>Co-authored work on effective-resistance rewiring for mitigating over-squashing in graph neural networks.</li>
-              <li>Co-authored work on character-level tokenization as an inductive bias for RNA foundational models.</li>
-              <li>Contributed to open benchmarking and workshop research around topological deep learning.</li>
+              <li data-i18n="trajectoryOutputBullet1">Co-authored work on effective-resistance rewiring for mitigating over-squashing in graph neural networks</li>
+              <li data-i18n="trajectoryOutputBullet2">Co-authored work on character-level tokenization as an inductive bias for RNA foundational models</li>
+              <li data-i18n="trajectoryOutputBullet3">Contributed to open benchmarking and workshop research around topological deep learning</li>
             </ul>
           </div>
         </article>
@@ -158,70 +165,64 @@
 
     <section class="section-shell" id="research">
       <div class="section-heading reveal">
-        <p class="eyebrow">Research Focus</p>
-        <h2>Four directions that define my current work.</h2>
+        <p class="eyebrow" data-i18n="researchEyebrow">Research Focus</p>
+        <h2 data-i18n="researchTitle">Four directions that define my current work</h2>
       </div>
       <div class="focus-grid">
         <article class="focus-card reveal">
           <span>01</span>
-          <h3>Graph neural networks</h3>
-          <p>Designing and analyzing GNNs with attention to expressivity, message passing limits, and useful structural priors.</p>
+          <h3 data-i18n="focus1Title">Graph neural networks</h3>
+          <p data-i18n="focus1Body">Designing and analyzing GNNs with attention to expressivity, message passing limits, and useful structural priors</p>
         </article>
         <article class="focus-card reveal">
           <span>02</span>
-          <h3>Graph structure learning</h3>
-          <p>Studying how topology, bottlenecks, and connectivity patterns affect model behavior and representation quality.</p>
+          <h3 data-i18n="focus2Title">Graph structure learning</h3>
+          <p data-i18n="focus2Body">Studying how topology, bottlenecks, and connectivity patterns affect model behavior and representation quality</p>
         </article>
         <article class="focus-card reveal">
           <span>03</span>
-          <h3>Topological rewiring</h3>
-          <p>Exploring rewiring strategies that improve long-range information propagation while controlling oversmoothing and graph distortion.</p>
+          <h3 data-i18n="focus3Title">Topological rewiring</h3>
+          <p data-i18n="focus3Body">Exploring rewiring strategies that improve long-range information propagation while controlling oversmoothing and graph distortion</p>
         </article>
         <article class="focus-card reveal">
           <span>04</span>
-          <h3>AI for biological data</h3>
-          <p>Applying modern representation learning methods to biological sequences and related scientific data problems.</p>
+          <h3 data-i18n="focus4Title">AI for biological data</h3>
+          <p data-i18n="focus4Body">Applying modern representation learning methods to biological sequences and related scientific data problems</p>
         </article>
       </div>
     </section>
 
     <section class="section-shell split-section" id="publications">
       <div class="section-heading reveal">
-        <p class="eyebrow">Publications</p>
-        <h2>Selected papers across graph learning and biological foundation models.</h2>
+        <p class="eyebrow" data-i18n="publicationsEyebrow">Publications</p>
+        <h2 data-i18n="publicationsTitle">Selected papers across graph learning and biological foundation models</h2>
       </div>
       <div class="publication-list">
         <article class="publication-card reveal">
-          <p class="tag">2019</p>
-          <h3>Resolution of General Linear Systems: Numerical Methods and Applications</h3>
-          <p>Early work on numerical methods for solving general linear systems and their applications.</p>
-        </article>
-
-        <article class="publication-card reveal">
           <p class="tag">ICLR 2026 Workshop GRaM</p>
           <h3>Effective Resistance Rewiring: A Simple Topological Correction for Over-Squashing</h3>
-          <p>Research on using effective resistance as a global signal for graph rewiring to relieve structural bottlenecks in GNNs.</p>
+          <p data-i18n="pub1Body">Research on using effective resistance as a global signal for graph rewiring to relieve structural bottlenecks in GNNs</p>
           <div class="inline-links">
             <a href="https://openreview.net/forum?id=thOIyY7WfW" target="_blank" rel="noreferrer">OpenReview</a>
             <a href="https://arxiv.org/abs/2603.11944" target="_blank" rel="noreferrer">arXiv</a>
-            <a href="https://iclr.cc/media/iclr-2026/Slides/10012739.pdf" target="_blank" rel="noreferrer">Poster</a>
+            <a href="https://iclr.cc/media/iclr-2026/Slides/10012739.pdf" target="_blank" rel="noreferrer" data-i18n="posterLabel">Poster</a>
           </div>
         </article>
 
         <article class="publication-card reveal">
           <p class="tag">arXiv - 2024 · ICLR Workshops 2025</p>
           <h3>Character-level Tokenizations as Powerful Inductive Biases for RNA Foundational Models</h3>
-          <p>Work on RNA foundation models showing how character-level tokenization can be an effective inductive bias for biological sequences.</p>
+          <p data-i18n="pub2Body">Work on RNA foundation models showing how character-level tokenization can be an effective inductive bias for biological sequences</p>
           <div class="inline-links">
             <a href="https://arxiv.org/abs/2411.11808" target="_blank" rel="noreferrer">arXiv</a>
-            <a href="https://openreview.net/profile?id=~Bertran_Miquel-Oliver1" target="_blank" rel="noreferrer">Author profile</a>
+            <a href="https://openreview.net/profile?id=~Bertran_Miquel-Oliver1" target="_blank" rel="noreferrer" data-i18n="authorProfileLabel">Author profile</a>
           </div>
         </article>
 
         <article class="publication-card reveal">
           <p class="tag">arXiv - 2024 · DMLR - 2025</p>
           <h3>TopoBenchmark: A Framework for Benchmarking Topological Deep Learning</h3>
-          <p>Contribution to an open framework for evaluating methods in topological deep learning across standardized benchmarks.</p>
+          <p data-i18n="pub3Body">Contribution to an open framework for evaluating methods in topological deep learning across standardized benchmarks</p>
           <div class="inline-links">
             <a href="https://openreview.net/forum?id=07sTzyEVtY" target="_blank" rel="noreferrer">OpenReview</a>
             <a href="https://openreview.net/pdf?id=07sTzyEVtY" target="_blank" rel="noreferrer">PDF</a>
@@ -232,46 +233,47 @@
         <article class="publication-card reveal">
           <p class="tag">ICML Topological Deep Learning Challenge - 2024</p>
           <h3>ICML Topological Deep Learning Challenge 2024: Beyond the Graph Domain</h3>
-          <p>Workshop paper connected to benchmarking and evaluation beyond standard graph settings in topological deep learning.</p>
+          <p data-i18n="pub4Body">Workshop paper connected to benchmarking and evaluation beyond standard graph settings in topological deep learning</p>
           <div class="inline-links">
             <a href="https://proceedings.mlr.press/v251/bernardez24a.html" target="_blank" rel="noreferrer">PMLR</a>
             <a href="https://openreview.net/forum?id=2lSpwrCj9s" target="_blank" rel="noreferrer">OpenReview</a>
             <a href="https://arxiv.org/abs/2409.05211" target="_blank" rel="noreferrer">arXiv</a>
           </div>
         </article>
+
       </div>
     </section>
 
     <section class="section-shell" id="blog">
       <div class="section-heading reveal">
-        <p class="eyebrow">Blog</p>
-        <h2>Research notes, graph ML intuition, and longer-form writing.</h2>
+        <p class="eyebrow" data-i18n="blogEyebrow">Blog</p>
+        <h2 data-i18n="blogTitle">Research notes, graph ML intuition, opinions on my own</h2>
       </div>
 
       <div class="project-grid">
         <article class="project-card reveal">
-          <p class="tag">Planned</p>
-          <h3>Effective Resistance Rewiring blog post</h3>
-          <p>A future long-form post on over-squashing, effective resistance, rewiring trade-offs, and what the paper changes in practice.</p>
+          <p class="tag" data-i18n="plannedLabel">ICLR GRaM Poster - 2026</p>
+          <h3 data-i18n="blog1Title">Effective Resistance Rewiring</h3>
+          <p data-i18n="blog1Body">A future long-form post on over-squashing, effective resistance, rewiring trade-offs, and what the paper changes in practice</p>
           <div class="inline-links">
-            <a href="https://openreview.net/forum?id=thOIyY7WfW" target="_blank" rel="noreferrer">Paper</a>
-            <a href="https://iclr.cc/media/iclr-2026/Slides/10012739.pdf" target="_blank" rel="noreferrer">Poster</a>
+            <a href="https://openreview.net/forum?id=thOIyY7WfW" target="_blank" rel="noreferrer" data-i18n="paperLabel">Paper</a>
+            <a href="https://iclr.cc/media/iclr-2026/Slides/10012739.pdf" target="_blank" rel="noreferrer" data-i18n="posterLabel">Poster</a>
           </div>
         </article>
         <article class="project-card reveal">
           <p class="tag">GRaM Blog - 2026</p>
-          <h3>Graph directionality matters</h3>
-          <p>A blog post on why edge directionality is not a cosmetic detail in graph learning, and how it changes the behavior of message passing models.</p>
+          <h3 data-i18n="blog2Title">Graph directionality matters</h3>
+          <p data-i18n="blog2Body">A blog post on why edge directionality is not a cosmetic detail in graph learning, and how it changes the behavior of message passing models</p>
           <div class="inline-links">
-            <a href="https://gram-blogposts.github.io/2026/blog/2026/graph_directionality_matters/" target="_blank" rel="noreferrer">Read post</a>
+            <a href="https://gram-blogposts.github.io/2026/blog/2026/graph_directionality_matters/" target="_blank" rel="noreferrer" data-i18n="readPostLabel">Read post</a>
           </div>
         </article>
         <article class="project-card reveal">
           <p class="tag">GRaM Blog - 2026</p>
-          <h3>Fewer edges</h3>
-          <p>A post exploring when simplifying graph connectivity can improve learning by changing information flow, structure, and inductive bias.</p>
+          <h3 data-i18n="blog3Title">Fewer edges</h3>
+          <p data-i18n="blog3Body">A post exploring when simplifying graph connectivity can improve learning by changing information flow, structure, and inductive bias</p>
           <div class="inline-links">
-            <a href="https://gram-blogposts.github.io/2026/blog/2026/fewer-edges/" target="_blank" rel="noreferrer">Read post</a>
+            <a href="https://gram-blogposts.github.io/2026/blog/2026/fewer-edges/" target="_blank" rel="noreferrer" data-i18n="readPostLabel">Read post</a>
           </div>
         </article>
       </div>
@@ -279,34 +281,34 @@
 
     <section class="section-shell skills-section" id="skills">
       <div class="section-heading reveal">
-        <p class="eyebrow">Technical Stack</p>
-        <h2>Tools behind the research workflow.</h2>
+        <p class="eyebrow" data-i18n="skillsEyebrow">Technical Stack</p>
+        <h2 data-i18n="skillsTitle">Tools behind the research workflow</h2>
       </div>
       <div class="skills-grid">
         <article class="skill-card reveal">
-          <h3>Graph ML</h3>
-          <p>Graph neural networks, topology-aware learning, rewiring methods, graph benchmarks</p>
+          <h3 data-i18n="skill1Title">Graph ML</h3>
+          <p data-i18n="skill1Body">Graph neural networks, topology-aware learning, rewiring methods, graph benchmarks</p>
         </article>
         <article class="skill-card reveal">
-          <h3>Deep Learning</h3>
-          <p>PyTorch, representation learning, foundation models, sequence modeling</p>
+          <h3 data-i18n="skill2Title">Deep Learning</h3>
+          <p data-i18n="skill2Body">PyTorch, representation learning, foundation models, sequence modeling</p>
         </article>
         <article class="skill-card reveal">
-          <h3>Scientific AI</h3>
-          <p>Bioinformatics, biological sequences, RNA modeling, data-driven research workflows</p>
+          <h3 data-i18n="skill3Title">Scientific AI</h3>
+          <p data-i18n="skill3Body">Bioinformatics, biological sequences, RNA modeling, data-driven research workflows</p>
         </article>
         <article class="skill-card reveal">
-          <h3>Research Practice</h3>
-          <p>Experiment design, benchmark analysis, technical writing, reproducible model evaluation</p>
+          <h3 data-i18n="skill4Title">Research Practice</h3>
+          <p data-i18n="skill4Body">Experiment design, benchmark analysis, technical writing, reproducible model evaluation</p>
         </article>
       </div>
     </section>
 
     <section class="section-shell contact-section" id="contact">
       <div class="contact-card reveal">
-        <p class="eyebrow">Contact</p>
-        <h2>Open to research conversations, collaboration, and graph ML discussions.</h2>
-        <p>
+        <p class="eyebrow" data-i18n="contactEyebrow">Contact</p>
+        <h2 data-i18n="contactTitle">Open to research conversations, collaboration, and graph ML discussions</h2>
+        <p data-i18n="contactBody">
           Email is the fastest way to reach me. You can also follow my publications and online profiles through
           Google Scholar, GitHub, and LinkedIn.
         </p>
@@ -315,15 +317,15 @@
           <a class="button" href="https://scholar.google.es/citations?user=lvBDBtgAAAAJ&hl=en" target="_blank" rel="noreferrer">Google Scholar</a>
           <a class="button" href="https://es.linkedin.com/in/bertran-miquel-oliver" target="_blank" rel="noreferrer">LinkedIn</a>
           <a class="button" href="https://github.com/bertranMiquel" target="_blank" rel="noreferrer">GitHub</a>
-          <a class="button ghost" href="Bertran_Miquel_Oliver_CV.pdf" download>Download CV</a>
+          <a class="button ghost" href="Bertran_Miquel_Oliver_CV.pdf" download data-i18n="downloadCv">Download CV</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p><span id="currentYear"></span> Bertran Miquel Oliver. Graph structure, GNNs, and AI for biological data.</p>
-    <button class="top-button" id="topBtn" type="button" aria-label="Back to top">Top</button>
+    <p><span id="currentYear"></span> <span data-i18n="footerText">Bertran Miquel Oliver. Graph structure, GNNs, and AI for biological data</span></p>
+    <button class="top-button" id="topBtn" type="button" aria-label="Back to top" data-i18n="topLabel">Top</button>
   </footer>
 </body>
 </html>
