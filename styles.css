@@ -121,7 +121,7 @@ a {
   top: 0;
   z-index: 20;
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   gap: 20px;
   align-items: center;
   width: min(var(--max), calc(100% - 32px));
@@ -191,7 +191,9 @@ a {
 .header-actions {
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 10px;
+  justify-self: end;
 }
 
 .icon-button,
@@ -213,6 +215,7 @@ a {
   padding: 0 13px;
   font-size: 0.78rem;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .lang-button {
@@ -647,6 +650,7 @@ h3 {
     grid-column: 2;
     grid-row: 1;
     justify-self: end;
+    align-self: center;
   }
 
   .icon-button {
@@ -698,6 +702,10 @@ h3 {
 
   .header-actions {
     gap: 8px;
+  }
+
+  .lang-button {
+    min-width: 76px;
   }
 
   .section-shell {
