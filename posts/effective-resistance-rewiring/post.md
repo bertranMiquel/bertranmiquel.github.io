@@ -183,7 +183,7 @@ We use a linear probe on the penultimate-layer embeddings to measure how linearl
 </div>
 
 <div class="caption">
-Linear-probe accuracy on Cora without PairNorm, comparing curvature rewiring and resistance add-remove rewiring.
+Linear-probe accuracy on Cora without PairNorm, comparing curvature rewiring (left) and resistance add-remove rewiring (right).
 </div>
 
 <div class="row">
@@ -196,8 +196,10 @@ Linear-probe accuracy on Cora without PairNorm, comparing curvature rewiring and
 </div>
 
 <div class="caption">
-Linear-probe accuracy on Cora with PairNorm, comparing curvature rewiring and resistance add-remove rewiring.
+Linear-probe accuracy on Cora with PairNorm, comparing curvature rewiring (left) and resistance add-remove rewiring (right).
 </div>
+
+The linear-probe results helps to understand that PairNorm stabilizes the depth trend of probe accuracy, while resistance-driven rewiring changes the depth at which informative embeddings appear. In the unnormalized setting, resistance-based rewiring also reduces part of the degradation observed as depth increases. This supports the interpretation that normalization and topology correction act on complementary aspects of the problem: PairNorm controls oversmoothing, while resistance-based rewiring modifies the graph bottlenecks that constrain information flow.
 
 Finally, we analyze cosine similarity between node embeddings from the same class and from different classes. This tracks how message passing changes the relation between class structure and embedding geometry across layers.
 
@@ -205,7 +207,7 @@ This diagnostic is useful for interpreting the interaction between rewiring, dep
 
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/posts/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/baseline.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora baseline without PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/none.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora baseline without PairNorm">
   </div>
   <div class="col-sm mt-3 mt-md-0">
     <img src="/posts/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora with resistance add-remove rewiring without PairNorm">
@@ -237,6 +239,8 @@ The experiments show that resistance-guided rewiring can improve connectivity an
 The central lesson is that topology-aware GNN design should consider both sides of this trade-off:
 
 > Better connectivity can help long-range communication, but it must be balanced against representation collapse and harmful mixing.
+
+Refer yourself to the <a href="https://arxiv.org/abs/2603.11944" target="_blank">paper</a> for more details on the method, experiments, and analysis.
 
 ## References
 
