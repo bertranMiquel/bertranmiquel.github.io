@@ -10,7 +10,6 @@ const translations = {
     brandAria: "Bertran Miquel Oliver home",
     navAria: "Main navigation",
     navAbout: "About",
-    navTrajectory: "Trajectory",
     navResearch: "Research",
     navPublications: "Publications",
     navBlog: "Blog",
@@ -39,26 +38,6 @@ const translations = {
       "My research sits at the intersection of graph representation learning, structural priors, and applied AI for scientific problems. I am particularly interested in how graph topology shapes model behavior, including information bottlenecks, over-squashing, and the inductive biases that make graph-based models more effective.",
     aboutBody2:
       "Alongside graph learning, I work on AI methods for biological data, including recent work connected to RNA foundational models. I care about methods that are both theoretically motivated and useful in real modeling pipelines.",
-    trajectoryEyebrow: "Trajectory",
-    trajectoryTitle: "Research direction shaped by graph structure and biological AI",
-    trajectoryRoleDate: "2024 - Present",
-    trajectoryRoleOrg: "Barcelona Supercomputing Center",
-    trajectoryRoleTitle: "PhD Researcher in Bioinformatics",
-    trajectoryRoleBullet1:
-      "Researching graph neural networks with emphasis on graph structure and topology-aware modeling",
-    trajectoryRoleBullet2:
-      "Studying rewiring strategies and structural corrections that improve long-range information flow in GNNs",
-    trajectoryRoleBullet3:
-      "Applying AI methods to biologically relevant data and representation learning problems",
-    trajectoryOutputDate: "2025 - 2026",
-    trajectoryOutputOrg: "Selected research outputs",
-    trajectoryOutputTitle: "Graph learning and RNA modeling publications",
-    trajectoryOutputBullet1:
-      "Co-authored work on effective-resistance rewiring for mitigating over-squashing in graph neural networks",
-    trajectoryOutputBullet2:
-      "Co-authored work on character-level tokenization as an inductive bias for RNA foundational models",
-    trajectoryOutputBullet3:
-      "Contributed to open benchmarking and workshop research around topological deep learning",
     researchEyebrow: "Research Focus",
     researchTitle: "Four directions that define my current work",
     focus1Title: "Graph neural networks",
@@ -120,6 +99,7 @@ const translations = {
     contactBody:
       "Email is the fastest way to reach me. You can also follow my publications and online profiles through Google Scholar, GitHub, and LinkedIn.",
     footerText: "Bertran Miquel Oliver. Graph structure, GNNs, and AI for biological data",
+    footerNote: "Based on the original GitHub repository by",
     topLabel: "Top",
     themeToggleDark: "Switch to dark theme",
     themeToggleLight: "Switch to light theme",
@@ -137,16 +117,15 @@ const translations = {
     brandAria: "Inici de Bertran Miquel Oliver",
     navAria: "Navegacio principal",
     navAbout: "Sobre mi",
-    navTrajectory: "Trajectoria",
     navResearch: "Recerca",
     navPublications: "Publicacions",
     navBlog: "Blog",
     navContact: "Contacte",
     themeLabel: "Tema",
     heroEyebrow: "Investigador Predoctoral - Xarxes Neuronals de Grafs - IA per a Dades Biologiques",
-    heroTitle: "Investigant l'estructura dels grafs per construir sistemes d'IA mes capacos",
+    heroTitle: "Investigant l'estructura dels grafs per construir sistemes d'IA mes capaços",
     heroLead:
-      "Soc investigador predoctoral en Bioinformatica al Barcelona Supercomputing Center, on treballo en xarxes neuronals de grafs, estructura de grafs, rewiring topologic i metodes d'IA per a dades biologiques. La meva recerca se centra en com els biaixos inductius estructurals poden millorar l'aprenentatge, la robustesa i el flux d'informacio a llarga distancia en models moderns d'IA.",
+      "Sóc investigador predoctoral en Bioinformatica al Barcelona Supercomputing Center, on treballo en xarxes neuronals de grafs, estructura de grafs, rewiring topologic i metodes d'IA per a dades biologiques. La meva recerca se centra en com els biaixos inductius estructurals poden millorar l'aprenentatge, la robustesa i el flux d'informacio a llarga distancia en models moderns d'IA.",
     heroActionsAria: "Accions principals",
     downloadCv: "Descarrega el CV",
     contactMe: "Contacta'm",
@@ -166,26 +145,6 @@ const translations = {
       "La meva recerca se situa a la interseccio entre l'aprenentatge de representacions sobre grafs, els priors estructurals i la IA aplicada a problemes cientifics. M'interessa especialment com la topologia del graf condiciona el comportament dels models, incloent colls d'ampolla d'informacio, over-squashing i els biaixos inductius que fan els models basats en grafs mes efectius.",
     aboutBody2:
       "En paral lel a la recerca en grafs, treballo en metodes d'IA per a dades biologiques, incloent-hi treball recent relacionat amb models fundacionals per a RNA. M'interessen els metodes amb fonament teoric i utilitat real en pipelines de modelatge.",
-    trajectoryEyebrow: "Trajectoria",
-    trajectoryTitle: "Una direccio de recerca marcada per l'estructura de grafs i la IA biologica",
-    trajectoryRoleDate: "2024 - Actualitat",
-    trajectoryRoleOrg: "Barcelona Supercomputing Center",
-    trajectoryRoleTitle: "Investigador Predoctoral en Bioinformatica",
-    trajectoryRoleBullet1:
-      "Recerca en xarxes neuronals de grafs amb especial atencio a l'estructura del graf i al modelatge conscient de la topologia",
-    trajectoryRoleBullet2:
-      "Estudi de tecniques de rewiring i correccions estructurals que milloren el flux d'informacio a llarga distancia en GNNs",
-    trajectoryRoleBullet3:
-      "Aplicacio de metodes d'IA a dades biologicament rellevants i a problemes d'aprenentatge de representacions",
-    trajectoryOutputDate: "2025 - 2026",
-    trajectoryOutputOrg: "Resultats de recerca seleccionats",
-    trajectoryOutputTitle: "Publicacions sobre aprenentatge en grafs i modelatge d'RNA",
-    trajectoryOutputBullet1:
-      "Coautor d'un treball sobre effective-resistance rewiring per mitigar l'over-squashing en xarxes neuronals de grafs",
-    trajectoryOutputBullet2:
-      "Coautor d'un treball sobre tokenitzacio a nivell de caracter com a biaix inductiu per a models fundacionals d'RNA",
-    trajectoryOutputBullet3:
-      "Contribucio a benchmarks oberts i a recerca de workshop en deep learning topologic",
     researchEyebrow: "Focus de recerca",
     researchTitle: "Quatre direccions que defineixen la meva feina actual",
     focus1Title: "Xarxes neuronals de grafs",
@@ -247,6 +206,7 @@ const translations = {
     contactBody:
       "El correu electronic es la manera mes rapida de contactar amb mi. Tambe pots seguir les meves publicacions i perfils online a Google Scholar, GitHub i LinkedIn.",
     footerText: "Bertran Miquel Oliver. Estructura de grafs, GNNs i IA per a dades biologiques",
+    footerNote: "Basat en el repositori original de GitHub de",
     topLabel: "Amunt",
     themeToggleDark: "Canvia al tema fosc",
     themeToggleLight: "Canvia al tema clar",
