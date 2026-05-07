@@ -119,7 +119,7 @@
     }
     .article-header p:last-child { margin-bottom: 0; }
     .post-info {
-      margin: 24px 0 0;
+      margin: 24px 0 24px;
       padding: 18px 20px;
       border: 1px solid var(--line);
       border-radius: 12px;
@@ -225,9 +225,10 @@
 <p>Effective resistance comes from the electrical-network analogy: a graph can be viewed as a network where edges act like wires and information can flow through all available paths <a class="citation" href="#ref-DoyleSnell1984" title="Random Walks and Electric Networks">[7]</a><a class="citation" href="#ref-KleinRandic1993" title="Resistance Distance">[8]</a>. If two nodes are connected by many alternative routes, their effective resistance is low. If communication between them depends on narrow bottlenecks, their effective resistance is high.</p>
 <p>This makes effective resistance useful for studying over-squashing because it captures global, multi-path connectivity rather than only shortest-path distance or local neighborhood structure.</p>
 <p>For an undirected connected graph with Laplacian \(L\), the effective resistance between nodes \(i\) and \(j\) is:</p>
-<p>$$ R_{ij} = (e_i - e_j)^\top L^\dagger (e_i - e_j), $$</p>
-<p>where $L^\dagger $ is the Moore-Penrose pseudoinverse of the graph Laplacian.</p>
+<p>$$ R_{ij} = (e_i - e_j)^T L^\dagger (e_i - e_j) $$</p>
+<p>where $L^\dagger$ is the Moore-Penrose pseudoinverse of the graph Laplacian.</p>
 <p>Large values of $R_{ij}$ indicate weak multi-path connectivity, which is consistent with bottlenecked information transmission. Effective resistance has also been connected to over-squashing through bounds on message-passing influence <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[9]</a>.</p>
+<p>In the directed setting, we use a directed notion of effective resistance <a class="citation" href="#ref-YoungScardoviLeonard2015" title="A New Notion of Effective Resistance for Directed Graphs—Part I: Definition and Properties">[10]</a>. Since directed graphs do not have symmetric reachability, we restrict resistance computations to node pairs within the same strongly connected component. This lets us apply the same bottleneck-based intuition while respecting the directionality of the graph.</p>
 <h2>Effective Resistance Rewiring</h2>
 <p>We propose <strong>Effective Resistance Rewiring (ERR)</strong>, a controlled add-remove rewiring strategy.</p>
 <p>At each rewiring step:</p>
@@ -235,8 +236,7 @@
 <li>Find the node pair with the largest effective resistance.</li>
 <li>Add an edge to improve this weak communication pathway.</li>
 <li>When remove edge operations are allowed</li>
-<li>Find an edge with very small effective resistance.</li>
-<li>Remove that edge only if connectivity is preserved.</li>
+<p>3.1. Find an edge with very small effective resistance. 3.2. Remove that edge only if connectivity is preserved.</p>
 </ol>
 <p>The goal is to strengthen poorly connected regions, while avoiding uncontrolled graph densification.</p>
 <p>The method is parameter-free beyond the rewiring budget. The budget controls the number of allowed edge edits. This allows us to study the trade-off between improving connectivity and controlling mixing. This process is computed once before training, so it does not add overhead to the training loop.</p>
@@ -246,20 +246,21 @@
 <li><strong>Homophilic graphs:</strong> Cora and CiteSeer</li>
 <li><strong>Heterophilic graphs:</strong> Cornell and Texas</li>
 </ul>
-<p>We study GCNs on undirected settings and DirGCN in directed settings <a class="citation" href="#ref-TongEtAl2020DirGCN" title="Directed Graph Convolutional Network">[10]</a>. We also compare models with and without <strong>PairNorm</strong>, a normalization method designed to mitigate oversmoothing <a class="citation" href="#ref-ZhaoAkoglu2019PairNorm" title="PairNorm: Tackling Oversmoothing in GNNs">[11]</a>.</p>
+<p>We study GCNs on undirected settings and DirGCN in directed settings <a class="citation" href="#ref-TongEtAl2020DirGCN" title="Directed Graph Convolutional Network">[11]</a>. We also compare models with and without <strong>PairNorm</strong>, a normalization method designed to mitigate oversmoothing <a class="citation" href="#ref-ZhaoAkoglu2019PairNorm" title="PairNorm: Tackling Oversmoothing in GNNs">[12]</a>.</p>
 <p>The experiments analyze:</p>
 <ul>
 <li>test accuracy as depth increases,</li>
 <li>the interaction between rewiring and PairNorm,</li>
-<li>linear-probe accuracy on penultimate-layer embeddings <a class="citation" href="#ref-alain2016understanding" title="Understanding Intermediate Layers Using Linear Classifier Probes">[12]</a>,</li>
+<li>study the similarity of learned representations across rewiring strategies using multiple metrics, including:</li>
+<li>linear-probe accuracy on penultimate-layer embeddings <a class="citation" href="#ref-alain2016understanding" title="Understanding Intermediate Layers Using Linear Classifier Probes">[13]</a>,</li>
 <li>cosine similarity between same-class and different-class node embeddings,</li>
-<li>CKA similarity between representations learned under different rewiring strategies <a class="citation" href="#ref-kornblith2019similarity" title="Similarity of Neural Network Representations Revisited">[13]</a>.</li>
+<li>CKA similarity between representations learned under different rewiring strategies <a class="citation" href="#ref-kornblith2019similarity" title="Similarity of Neural Network Representations Revisited">[14]</a>.</li>
 </ul>
-<p>Datasets and splits are loaded through PyTorch Geometric <a class="citation" href="#ref-fey2019fast" title="Fast Graph Representation Learning with PyTorch Geometric">[14]</a>.</p>
+<p>Datasets and splits are loaded through PyTorch Geometric <a class="citation" href="#ref-fey2019fast" title="Fast Graph Representation Learning with PyTorch Geometric">[15]</a>, while hyperparameters are taken from previous works <a class="citation" href="#ref-ZhaoAkoglu2019PairNorm" title="PairNorm: Tackling Oversmoothing in GNNs">[12]</a><a class="citation" href="#ref-TongEtAl2020DirGCN" title="Directed Graph Convolutional Network">[11]</a>.</p>
 <h2>Accuracy across depth</h2>
 <p>The first set of results studies GCN test accuracy as the number of layers increases.</p>
-<p>On homophilic citation graphs such as Cora and CiteSeer, accuracy tends to degrade with depth when PairNorm is not used. This is consistent with oversmoothing in deeper models. PairNorm stabilizes the depth trend and reduces the sharp degradation observed without normalization.</p>
-<p>On heterophilic graphs such as Cornell and Texas, the behavior is different. PairNorm has a weaker effect on the depth dynamics, and rewiring strategies often improve accuracy compared to the baseline across multiple depths.</p>
+<p>On homophilic citation graphs, accuracy tends to degrade with depth when PairNorm is not used. This is consistent with oversmoothing in deeper models. PairNorm stabilizes the depth trend and reduces the sharp degradation observed without normalization.</p>
+<p>On heterophilic graphs, the behavior is different. PairNorm has a weaker effect on the depth dynamics, and rewiring strategies often improve accuracy compared to the baseline across multiple depths.</p>
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
     <img src="/posts/effective-resistance-rewiring/images/No_pairnorm/cora_0.1_gcn.png" class="img-fluid rounded z-depth-1" alt="Cora GCN accuracy across depth without PairNorm">
@@ -283,32 +284,13 @@ GCN test accuracy across depth on Cora, without PairNorm and with PairNorm.
 GCN test accuracy across depth on Cornell, without PairNorm and with PairNorm.
 </div>
 <p>These results show that topology correction and oversmoothing control affect different aspects of depth behavior. Rewiring can improve communication across the graph, while PairNorm helps stabilize representations against collapse.</p>
-<h2>Representation-level analysis</h2>
-<p>Accuracy alone does not tell us whether different rewiring strategies produce similar internal representations. For this reason, we also analyze the learned embeddings.</p>
-<p>We use a linear probe on the penultimate-layer embeddings to measure how linearly separable the learned representations are before the final classifier. This helps evaluate whether the intermediate representation remains informative as depth increases.</p>
-<div class="row">
-  <div class="col-sm mt-3 mt-md-0">
-    <img src="/posts/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring without PairNorm">
-  </div>
-  <div class="col-sm mt-3 mt-md-0">
-    <img src="/posts/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring without PairNorm">
-  </div>
-</div>
-<div class="caption">
-Linear-probe accuracy on Cora without PairNorm, comparing curvature rewiring and resistance add-remove rewiring.
-</div>
-<div class="row">
-  <div class="col-sm mt-3 mt-md-0">
-    <img src="/posts/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring and PairNorm">
-  </div>
-  <div class="col-sm mt-3 mt-md-0">
-    <img src="/posts/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring and PairNorm">
-  </div>
-</div>
-<div class="caption">
-Linear-probe accuracy on Cora with PairNorm, comparing curvature rewiring and resistance add-remove rewiring.
-</div>
-<p>We also compare representation similarity across rewiring strategies using <strong>Centered Kernel Alignment (CKA)</strong>. This measures whether models trained with different rewired graphs learn similar or different representations.</p>
+<h2>How rewiring changes learned representations</h2>
+<p>Accuracy alone does not tell us whether different rewiring strategies produce similar internal representations. Two rewired graphs may reach comparable test accuracy while inducing different message-passing trajectories and different embedding geometries.</p>
+<p>This motivates the following question:</p>
+<blockquote>
+<p>Do different rewiring strategies lead to similar or different learned representations?</p>
+</blockquote>
+<p>To study this, we first compare learned representations using <strong>Centered Kernel Alignment (CKA)</strong> <a class="citation" href="#ref-kornblith2019similarity" title="Similarity of Neural Network Representations Revisited">[14]</a>. CKA measures similarity between representations while being invariant to orthogonal transformations and isotropic scaling, making it useful for comparing independently trained models.</p>
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
     <img src="/posts/effective-resistance-rewiring/images/cka/no_pairnorm/cora.png" class="img-fluid rounded z-depth-1" alt="CKA similarity on Cora without PairNorm">
@@ -318,11 +300,11 @@ Linear-probe accuracy on Cora with PairNorm, comparing curvature rewiring and re
   </div>
 </div>
 <div class="caption">
-CKA similarity between last-layer GCN representations with curvature rewiring and resistance-based rewiring strategies on Cora.
+CKA similarity between last-layer GCN representations with curvature rewiring and resistance-based rewiring strategies on Cora. When CKA is close to 1, the two representations are very similar. When CKA is close to 0, the two representations are very different.
 </div>
-<p>The representation-level results show that rewiring strategies can reach similar test accuracies while producing different embedding geometries. This is important because topology edits do not only affect final performance; they also change how information is represented inside the network.</p>
-<h2>Edge-set overlap between rewiring strategies</h2>
-<p>We also compare which edges are added by different rewiring strategies. The UpSet plots show intersections between added-edge sets at budget \(r = 0.1\).</p>
+<p>The CKA analysis shows that different rewiring strategies can produce different learned representations, even when their final accuracies are similar. This suggests that the rewiring criterion affects not only performance, but also the geometry of the learned embedding space.</p>
+<p>One reason is that each rewiring strategy changes the graph in a different way before training. Curvature-based rewiring and resistance-based rewiring are both motivated by bottlenecks, but they operate at different structural scales. Curvature focuses on local geometric bottlenecks <a class="citation" href="#ref-ToppingEtAl2022" title="Understanding Over-Squashing and Bottlenecks on Graphs via Curvature">[16]</a>, while effective resistance captures global multi-path connectivity between node pairs <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[9]</a>.</p>
+<p>To check whether different rewiring criteria actually modify different parts of the graph, we compare the sets of edges added by each method. The UpSet plots show intersections between added-edge sets at budget \(r = 0.1\).</p>
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
     <img src="/posts/effective-resistance-rewiring/images/upset/cora.png" class="img-fluid rounded z-depth-1" alt="UpSet plot of added edges on Cora">
@@ -334,14 +316,46 @@ CKA similarity between last-layer GCN representations with curvature rewiring an
 <div class="caption">
 Overlap between edge sets added by different rewiring strategies at budget \(r = 0.1\).
 </div>
-<p>This graph-level analysis confirms that different rewiring criteria can modify different parts of the graph before training begins.</p>
-<h2>Curvature and resistance operate at different scales</h2>
-<p>Curvature-based rewiring and resistance-based rewiring both aim to address bottlenecks, but they use different signals.</p>
-<p>Curvature focuses on local geometric bottlenecks <a class="citation" href="#ref-ToppingEtAl2022" title="Understanding Over-Squashing and Bottlenecks on Graphs via Curvature">[15]</a>. Effective resistance captures global multi-path connectivity between node pairs <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[9]</a>.</p>
-<p>Our experiments show that these methods can sometimes obtain similar accuracy, but the learned representations need not be the same. This suggests that the choice of rewiring criterion matters not only for performance, but also for the internal structure of the learned embeddings.</p>
-<h2>Directed graphs</h2>
-<p>For directed graphs, we use a directed generalization of effective resistance <a class="citation" href="#ref-YoungScardoviLeonard2015" title="A New Notion of Effective Resistance for Directed Graphs—Part I: Definition and Properties">[16]</a>. Since directed effective resistance is only well-defined under appropriate connectivity conditions, we restrict pairwise computations to nodes within the same strongly connected component.</p>
-<p>This keeps the resistance computation well-defined, but also restricts which bottlenecks can be modified. The directed extension therefore provides a principled first step toward topology correction in directed message-passing settings.</p>
+<p>These plots support that different rewiring criteria are generating different initial graph topologies, which can lead to different message-passing trajectories and different embedding geometries after training.</p>
+<p>After observing that different rewiring strategies can lead to different representations, we next ask whether these representations remain useful for classification.</p>
+<p>We use a linear probe on the penultimate-layer embeddings to measure how linearly separable the learned representations are before the final classifier <a class="citation" href="#ref-alain2016understanding" title="Understanding Intermediate Layers Using Linear Classifier Probes">[13]</a>. This provides a complementary view to CKA: while CKA compares representation similarity across methods, the linear probe evaluates how informative those representations are for the downstream task.</p>
+<div class="row">
+  <div class="col-sm mt-3 mt-md-0">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring without PairNorm">
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring without PairNorm">
+  </div>
+</div>
+<div class="caption">
+Linear-probe accuracy on Cora without PairNorm, comparing curvature rewiring (left) and resistance add-remove rewiring (right).
+</div>
+<div class="row">
+  <div class="col-sm mt-3 mt-md-0">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring and PairNorm">
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring and PairNorm">
+  </div>
+</div>
+<div class="caption">
+Linear-probe accuracy on Cora with PairNorm, comparing curvature rewiring (left) and resistance add-remove rewiring (right).
+</div>
+<p>The linear-probe results helps to understand that PairNorm stabilizes the depth trend of probe accuracy, while resistance-driven rewiring changes the depth at which informative embeddings appear. In the unnormalized setting, resistance-based rewiring also reduces part of the degradation observed as depth increases. This supports the interpretation that normalization and topology correction act on complementary aspects of the problem: PairNorm controls oversmoothing, while resistance-based rewiring modifies the graph bottlenecks that constrain information flow.</p>
+<p>Finally, we analyze cosine similarity between node embeddings from the same class and from different classes. This tracks how message passing changes the relation between class structure and embedding geometry across layers.</p>
+<p>This diagnostic is useful for interpreting the interaction between rewiring, depth, and PairNorm: rewiring can improve communication across the graph, but repeated aggregation may also increase mixing between classes.</p>
+<div class="row">
+  <div class="col-sm mt-3 mt-md-0">
+    <img src="/posts/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/none.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora baseline without PairNorm">
+  </div>
+  <div class="col-sm mt-3 mt-md-0">
+    <img src="/posts/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora with resistance add-remove rewiring without PairNorm">
+  </div>
+</div>
+<div class="caption">
+Mean cosine similarity between node embeddings from the same class and different classes on Cora without PairNorm. When the two lines are close, it means that same-class and different-class embeddings have similar geometry, which can indicate harmful mixing. When the two lines are far apart, it means that same-class embeddings are more distinct from different-class embeddings. When cosine similarity increases across layers, it might indicate smoothing and loss of discriminative power.
+</div>
+<p>Together, CKA, edge-set overlap, linear probing, and cosine similarity show that rewiring should not be interpreted only through final accuracy. Different topology corrections can modify different parts of the graph, produce different embedding geometries, and affect how class information is preserved across layers.</p>
 <h2>Limitations</h2>
 <p>Effective resistance is informative, but computing it is costly, especially in directed settings. This makes scaling and frequent recomputation a concern.</p>
 <p>Another limitation is that resistance is task-agnostic. It improves connectivity according to graph structure, not according to label semantics. In heterophilic graphs, improving connectivity can also increase harmful mixing across classes, especially in deeper models.</p>
@@ -354,6 +368,7 @@ Overlap between edge sets added by different rewiring strategies at budget \(r =
 <blockquote>
 <p>Better connectivity can help long-range communication, but it must be balanced against representation collapse and harmful mixing.</p>
 </blockquote>
+<p>Refer yourself to the <a href="https://arxiv.org/abs/2603.11944" target="_blank">paper</a> for more details on the method, experiments, and analysis.</p>
 <h2>References</h2>
 <ol class="references-list">
 <li id="ref-KipfWelling2017GCN"><span class="ref-index">[1]</span> Kipf, Thomas N., Welling, Max. &quot;Semi-Supervised Classification with Graph Convolutional Networks&quot;. International Conference on Learning Representations (ICLR). 2017. arXiv:1609.02907.</li>
@@ -365,13 +380,13 @@ Overlap between edge sets added by different rewiring strategies at budget \(r =
 <li id="ref-DoyleSnell1984"><span class="ref-index">[7]</span> Doyle, Peter G., Snell, J. Laurie. &quot;Random Walks and Electric Networks&quot;. Mathematical Association of America. 1984.</li>
 <li id="ref-KleinRandic1993"><span class="ref-index">[8]</span> Klein, Douglas J., Randi\&#x27;c, Milan. &quot;Resistance Distance&quot;. Journal of Mathematical Chemistry. 1993.</li>
 <li id="ref-BlackEtAl2023"><span class="ref-index">[9]</span> Black, Mitchell, Wan, Zhengchao, Nayyeri, Amir, Wang, Yusu. &quot;Understanding Oversquashing in GNNs through the Lens of Effective Resistance&quot;. International Conference on Machine Learning (ICML). 2023.</li>
-<li id="ref-TongEtAl2020DirGCN"><span class="ref-index">[10]</span> Tong, Z., Liang, Y., Sun, C., Rosenblum, D., Lim, A.. &quot;Directed Graph Convolutional Network&quot;. arXiv preprint arXiv:2004.13970. 2020.</li>
-<li id="ref-ZhaoAkoglu2019PairNorm"><span class="ref-index">[11]</span> Zhao, Lingxiao, Akoglu, Leman. &quot;PairNorm: Tackling Oversmoothing in GNNs&quot;. arXiv preprint arXiv:1909.12223. 2019.</li>
-<li id="ref-alain2016understanding"><span class="ref-index">[12]</span> Alain, Guillaume, Bengio, Yoshua. &quot;Understanding Intermediate Layers Using Linear Classifier Probes&quot;. arXiv preprint arXiv:1610.01644. 2016.</li>
-<li id="ref-kornblith2019similarity"><span class="ref-index">[13]</span> Kornblith, Simon, Norouzi, Mohammad, Lee, Honglak, Hinton, Geoffrey. &quot;Similarity of Neural Network Representations Revisited&quot;. International Conference on Machine Learning. 2019.</li>
-<li id="ref-fey2019fast"><span class="ref-index">[14]</span> Fey, Matthias, Lenssen, Jan Eric. &quot;Fast Graph Representation Learning with PyTorch Geometric&quot;. arXiv preprint arXiv:1903.02428. 2019.</li>
-<li id="ref-ToppingEtAl2022"><span class="ref-index">[15]</span> Topping, Jake, Di Giovanni, Francesco, Chamberlain, Benjamin Paul, Dong, Xiaowen, Bronstein, Michael M.. &quot;Understanding Over-Squashing and Bottlenecks on Graphs via Curvature&quot;. International Conference on Learning Representations (ICLR). 2022. arXiv:2111.14522.</li>
-<li id="ref-YoungScardoviLeonard2015"><span class="ref-index">[16]</span> Young, George Forrest, Scardovi, Luca, Leonard, Naomi Ehrich. &quot;A New Notion of Effective Resistance for Directed Graphs—Part I: Definition and Properties&quot;. IEEE Transactions on Automatic Control. 2015.</li>
+<li id="ref-YoungScardoviLeonard2015"><span class="ref-index">[10]</span> Young, George Forrest, Scardovi, Luca, Leonard, Naomi Ehrich. &quot;A New Notion of Effective Resistance for Directed Graphs—Part I: Definition and Properties&quot;. IEEE Transactions on Automatic Control. 2015.</li>
+<li id="ref-TongEtAl2020DirGCN"><span class="ref-index">[11]</span> Tong, Z., Liang, Y., Sun, C., Rosenblum, D., Lim, A.. &quot;Directed Graph Convolutional Network&quot;. arXiv preprint arXiv:2004.13970. 2020.</li>
+<li id="ref-ZhaoAkoglu2019PairNorm"><span class="ref-index">[12]</span> Zhao, Lingxiao, Akoglu, Leman. &quot;PairNorm: Tackling Oversmoothing in GNNs&quot;. arXiv preprint arXiv:1909.12223. 2019.</li>
+<li id="ref-alain2016understanding"><span class="ref-index">[13]</span> Alain, Guillaume, Bengio, Yoshua. &quot;Understanding Intermediate Layers Using Linear Classifier Probes&quot;. arXiv preprint arXiv:1610.01644. 2016.</li>
+<li id="ref-kornblith2019similarity"><span class="ref-index">[14]</span> Kornblith, Simon, Norouzi, Mohammad, Lee, Honglak, Hinton, Geoffrey. &quot;Similarity of Neural Network Representations Revisited&quot;. International Conference on Machine Learning. 2019.</li>
+<li id="ref-fey2019fast"><span class="ref-index">[15]</span> Fey, Matthias, Lenssen, Jan Eric. &quot;Fast Graph Representation Learning with PyTorch Geometric&quot;. arXiv preprint arXiv:1903.02428. 2019.</li>
+<li id="ref-ToppingEtAl2022"><span class="ref-index">[16]</span> Topping, Jake, Di Giovanni, Francesco, Chamberlain, Benjamin Paul, Dong, Xiaowen, Bronstein, Michael M.. &quot;Understanding Over-Squashing and Bottlenecks on Graphs via Curvature&quot;. International Conference on Learning Representations (ICLR). 2022. arXiv:2111.14522.</li>
 </ol>
     </article>
   </main>

@@ -368,7 +368,7 @@ def build() -> None:
     }}
     .article-header p:last-child {{ margin-bottom: 0; }}
     .post-info {{
-      margin: 24px 0 0;
+      margin: 24px 0 24px;
       padding: 18px 20px;
       border: 1px solid var(--line);
       border-radius: 12px;

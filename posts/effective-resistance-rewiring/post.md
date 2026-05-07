@@ -14,8 +14,6 @@ tags: gnn oversquashing graph-rewiring effective-resistance pairnorm iclr gram
   <strong>arXiv:</strong> <a href="https://arxiv.org/abs/2603.11944" target="_blank">2603.11944</a>
 </div>
 
-<div style="margin-bottom: 1.5em;"></div>
-
 Graph Neural Networks (GNNs) update node representations by aggregating information from neighboring nodes. This message-passing mechanism gives GNNs a strong inductive bias for relational data, but it also constrains how information can propagate through a graph <d-cite key="KipfWelling2017GCN"></d-cite>.
 
 When useful information is far away, a GNN needs multiple layers to propagate it. However, increasing depth does not automatically solve long-range reasoning. If many distant nodes can influence a target node only through a narrow set of intermediate nodes or edges, their information has to be compressed into fixed-size vectors. This can strongly attenuate long-range signals.
