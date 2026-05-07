@@ -268,11 +268,7 @@ function applyTranslations(language) {
     });
   });
 
-  const langText = language === "ca" ? "CA / EN" : "EN / CA";
-  const langLabel = langToggle?.querySelector("span");
-  if (langLabel) {
-    langLabel.textContent = langText;
-  }
+  langToggle?.setAttribute("data-language", language);
   langToggle?.setAttribute("aria-label", locale.langToggle);
 
   updateThemeLabel(language);
