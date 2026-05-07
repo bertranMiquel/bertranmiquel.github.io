@@ -208,7 +208,7 @@
     <article class="content">
 <div class="post-info">
   <strong>Paper:</strong> Effective Resistance Rewiring: A Simple Topological Correction for Over-Squashing<br>
-  <strong>Venue:</strong> GRaM Workshop at ICLR 2026, Proceedings Track<br>
+  <strong>Venue:</strong> Accepted as a poster at the GRaM Workshop @ ICLR 2026<br>
   <strong>Authors:</strong> Bertran Miquel-Oliver, Manel Gil-Sorribes, Victor Guallar, Alexis Molina<br>
   <strong>arXiv:</strong> <a href="https://arxiv.org/abs/2603.11944" target="_blank">2603.11944</a>
 </div>
@@ -225,20 +225,21 @@
 <p>Effective resistance comes from the electrical-network analogy: a graph can be viewed as a network where edges act like wires and information can flow through all available paths <a class="citation" href="#ref-DoyleSnell1984" title="Random Walks and Electric Networks">[7]</a><a class="citation" href="#ref-KleinRandic1993" title="Resistance Distance">[8]</a>. If two nodes are connected by many alternative routes, their effective resistance is low. If communication between them depends on narrow bottlenecks, their effective resistance is high.</p>
 <p>This makes effective resistance useful for studying over-squashing because it captures global, multi-path connectivity rather than only shortest-path distance or local neighborhood structure.</p>
 <p>For an undirected connected graph with Laplacian \(L\), the effective resistance between nodes \(i\) and \(j\) is:</p>
-<p>$R_{ij} = (e_i - e_j)^\top L^\dagger (e_i - e_j),$</p>
-<p>where $L^\dagger$ is the Moore-Penrose pseudoinverse of the graph Laplacian.</p>
-<p>Large values of \(R_{ij}\) indicate weak multi-path connectivity, which is consistent with bottlenecked information transmission. Effective resistance has also been connected to over-squashing through bounds on message-passing influence <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[9]</a>.</p>
+<p>$$ R_{ij} = (e_i - e_j)^\top L^\dagger (e_i - e_j), $$</p>
+<p>where $L^\dagger $ is the Moore-Penrose pseudoinverse of the graph Laplacian.</p>
+<p>Large values of $R_{ij}$ indicate weak multi-path connectivity, which is consistent with bottlenecked information transmission. Effective resistance has also been connected to over-squashing through bounds on message-passing influence <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[9]</a>.</p>
 <h2>Effective Resistance Rewiring</h2>
 <p>We propose <strong>Effective Resistance Rewiring (ERR)</strong>, a controlled add-remove rewiring strategy.</p>
 <p>At each rewiring step:</p>
 <ol>
 <li>Find the node pair with the largest effective resistance.</li>
 <li>Add an edge to improve this weak communication pathway.</li>
+<li>When remove edge operations are allowed</li>
 <li>Find an edge with very small effective resistance.</li>
 <li>Remove that edge only if connectivity is preserved.</li>
 </ol>
-<p>The goal is to strengthen poorly connected regions while avoiding uncontrolled graph densification.</p>
-<p>The method is parameter-free beyond the rewiring budget. The budget controls the number of allowed edge edits.</p>
+<p>The goal is to strengthen poorly connected regions, while avoiding uncontrolled graph densification.</p>
+<p>The method is parameter-free beyond the rewiring budget. The budget controls the number of allowed edge edits. This allows us to study the trade-off between improving connectivity and controlling mixing. This process is computed once before training, so it does not add overhead to the training loop.</p>
 <h2>Experimental setting</h2>
 <p>We evaluate the method on node classification datasets with different graph regimes:</p>
 <ul>

@@ -68,10 +68,10 @@ const translations = {
     authorProfileLabel: "Author profile",
     blogEyebrow: "Blog",
     blogTitle: "Research notes, graph ML intuition, and longer-form writing",
-    plannedLabel: "Planned",
+    acceptedPosterLabel: "Accepted poster at GRaM Workshop @ ICLR 2026",
     blog1Title: "Effective Resistance Rewiring blog post",
     blog1Body:
-      "A future long-form post on over-squashing, effective resistance, rewiring trade-offs, and what the paper changes in practice",
+      "A long-form post on over-squashing, effective resistance, rewiring trade-offs, and what the accepted poster changes in practice",
     paperLabel: "Paper",
     blog2Title: "Graph directionality matters",
     blog2Body:
@@ -175,10 +175,10 @@ const translations = {
     authorProfileLabel: "Perfil d'autor",
     blogEyebrow: "Blog",
     blogTitle: "Notes de recerca, intuicio sobre graph ML i textos mes llargs",
-    plannedLabel: "Previst",
-    blog1Title: "Futura entrada sobre Effective Resistance Rewiring",
+    acceptedPosterLabel: "Poster acceptat al workshop GRaM @ ICLR 2026",
+    blog1Title: "Entrada sobre Effective Resistance Rewiring",
     blog1Body:
-      "Un text llarg futur sobre over-squashing, effective resistance, compromisos del rewiring i que canvia aquest article a la practica",
+      "Un text llarg sobre over-squashing, effective resistance, compromisos del rewiring i que canvia a la practica aquest poster acceptat",
     paperLabel: "Article",
     blog2Title: "Graph directionality matters",
     blog2Body:
