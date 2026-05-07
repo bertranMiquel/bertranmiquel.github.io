@@ -98,7 +98,7 @@ const translations = {
     contactTitle: "Open to research conversations, collaboration, and graph ML discussions",
     contactBody:
       "Email is the fastest way to reach me. You can also follow my publications and online profiles through Google Scholar, GitHub, and LinkedIn.",
-    footerText: "Bertran Miquel Oliver. Graph structure, GNNs, and AI for biological data",
+    footerText: "Bertran Miquel Oliver. Graph structure, GNNs, and AI for biology",
     footerNote: "Based on the original GitHub repository by",
     topLabel: "Top",
     themeToggleDark: "Switch to dark theme",
@@ -110,7 +110,7 @@ const translations = {
     htmlLang: "ca",
     pageTitle: "Bertran Miquel Oliver | Recerca en Estructura de Grafs i IA",
     metaDescription:
-      "Portafolis de Bertran Miquel Oliver, investigador predoctoral al Barcelona Supercomputing Center que treballa en xarxes neuronals de grafs, estructura de grafs, rewiring topologic i IA per a dades biologiques.",
+      "Portafolis de Bertran Miquel Oliver, investigador predoctoral al Barcelona Supercomputing Center que treballa en xarxes neuronals de grafs, estructura de grafs, rewiring topologic i IA aplicada a la biologia.",
     metaOgTitle: "Bertran Miquel Oliver | Recerca en Estructura de Grafs i IA",
     metaOgDescription:
       "Investigador predoctoral al BSC que estudia xarxes neuronals de grafs, rewiring de grafs i metodes d'IA per a dades biologiques.",

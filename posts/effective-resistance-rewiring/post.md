@@ -2,7 +2,7 @@
 layout: post
 title: "Effective Resistance Rewiring: A Simple Topological Correction for Over-Squashing"
 description: "We study over-squashing in Graph Neural Networks as a topology-driven bottleneck and use effective resistance to guide controlled graph rewiring."
-date: 2026-05-07
+date: 07-05-2026
 categories: research graph-neural-networks
 tags: gnn oversquashing graph-rewiring effective-resistance pairnorm iclr gram
 ---

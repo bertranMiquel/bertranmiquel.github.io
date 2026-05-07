@@ -505,6 +505,15 @@ h3 {
   margin-bottom: 0;
 }
 
+.publication-authors {
+  margin-top: -6px;
+  margin-bottom: 10px;
+  color: var(--text) !important;
+  font-size: 0.92rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 .timeline {
   display: grid;
   gap: 18px;
