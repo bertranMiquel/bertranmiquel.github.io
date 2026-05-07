@@ -25,13 +25,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Build post pages
+        run: |
+          python3 scripts/build_post.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
       - name: Prepare site files
         run: |
           mkdir -p _site
-          cp index.html styles.css script.js flavicon.ico bertran-profile.jpg Bertran_Miquel_Oliver_CV.pdf _site/
+          cp index.html styles.css script.js flavicon.ico bertran-profile.jpg Bertran_Miquel_Oliver_CV.pdf flag-uk.svg flag-catalonia.svg _site/
+          cp -r posts _site/
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

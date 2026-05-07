@@ -202,7 +202,7 @@ const translations = {
     skill4Body:
       "Disseny d'experiments, analisi de benchmarks, escriptura tecnica, avaluacio reproduible de models",
     contactEyebrow: "Contacte",
-    contactTitle: "Disponible per a converses de recerca, col laboracio i discussions sobre graph ML",
+    contactTitle: "Contacteu si voleu parlar de recerca, col·laborar o discutir sobre graph ML",
     contactBody:
       "El correu electronic es la manera mes rapida de contactar amb mi. Tambe pots seguir les meves publicacions i perfils online a Google Scholar, GitHub i LinkedIn.",
     footerText: "Bertran Miquel Oliver. Estructura de grafs, GNNs i IA per a dades biologiques",
