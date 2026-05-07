@@ -215,7 +215,7 @@ This diagnostic is useful for interpreting the interaction between rewiring, dep
 </div>
 
 <div class="caption">
-Mean cosine similarity between node embeddings from the same class and different classes on Cora without PairNorm.
+Mean cosine similarity between node embeddings from the same class and different classes on Cora without PairNorm. When the two lines are close, it means that same-class and different-class embeddings have similar geometry, which can indicate harmful mixing. When the two lines are far apart, it means that same-class embeddings are more distinct from different-class embeddings. When cosine similarity increases across layers, it might indicate smoothing and loss of discriminative power.
 </div>
 
 Together, CKA, edge-set overlap, linear probing, and cosine similarity show that rewiring should not be interpreted only through final accuracy. Different topology corrections can modify different parts of the graph, produce different embedding geometries, and affect how class information is preserved across layers.
