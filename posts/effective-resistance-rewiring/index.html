@@ -25,6 +25,17 @@
       --radius-lg: 16px;
       --max: 900px;
     }
+    body.light-theme {
+      color-scheme: light;
+      --bg: #f7fafc;
+      --bg-soft: #eef4f8;
+      --surface: rgba(255,255,255,0.82);
+      --surface-strong: #ffffff;
+      --text: #101827;
+      --muted: #516071;
+      --line: rgba(15,23,42,0.13);
+      --shadow: 0 24px 70px rgba(33,55,85,0.14);
+    }
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -36,11 +47,15 @@
       color: var(--text);
       font-family: Inter, system-ui, sans-serif;
       line-height: 1.7;
+      transition: background 220ms ease, color 220ms ease;
     }
     a { color: var(--accent-strong); }
     img { display: block; max-width: 100%; }
     .shell { width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }
     .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 22px 0 0;
     }
     .back-link {
@@ -50,6 +65,27 @@
       color: var(--muted);
       text-decoration: none;
       font-weight: 700;
+    }
+    .theme-toggle {
+      display: inline-grid;
+      place-items: center;
+      min-width: 64px;
+      height: 42px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+    .theme-toggle:hover {
+      transform: translateY(-2px);
+      background: var(--surface-strong);
+      border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
     }
     .article {
       padding: 34px 0 80px;
@@ -149,14 +185,19 @@
       border-top: 1px solid var(--line);
     }
     @media (max-width: 720px) {
+      .topbar {
+        gap: 12px;
+      }
       .article-header { padding: 24px; }
       .row { grid-template-columns: 1fr; }
     }
   </style>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
   <div class="shell topbar">
     <a class="back-link" href="../../index.html">← Back to homepage</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme">Theme</button>
   </div>
   <main class="shell article">
     <header class="article-header">
@@ -172,26 +213,21 @@
   <strong>arXiv:</strong> <a href="https://arxiv.org/abs/2603.11944" target="_blank">2603.11944</a>
 </div>
 <p>Graph Neural Networks (GNNs) update node representations by aggregating information from neighboring nodes. This message-passing mechanism gives GNNs a strong inductive bias for relational data, but it also constrains how information can propagate through a graph <a class="citation" href="#ref-KipfWelling2017GCN" title="Semi-Supervised Classification with Graph Convolutional Networks">[1]</a>.</p>
-<p>When useful information is far away, a GNN needs multiple layers to propagate it. However, increasing depth does not automatically solve long-range reasoning. If many distant nodes can influence a target node only through a narrow set of intermediate nodes or edges, their information has to be compressed into fixed-size vectors. This can strongly attenuate long-range signals.</p>
-<p>This phenomenon is known as <strong>over-squashing</strong> <a class="citation" href="#ref-AlonYahav2020" title="On the Bottleneck of Graph Neural Networks and Its Practical Implications">[2]</a>.</p>
-<p>In our GRaM workshop paper at ICLR 2026, <strong>Effective Resistance Rewiring: A Simple Topological Correction for Over-Squashing</strong>, we study over-squashing as a topology-driven limitation and propose a graph rewiring strategy based on <strong>effective resistance</strong> <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[3]</a>.</p>
-<p>The central question is:</p>
-<blockquote>
-<p>Can we modify graph topology so that long-range information has better routes to propagate through a GNN?</p>
-</blockquote>
+<p>When useful information is far away, a GNN needs multiple layers to propagate it. However, increasing depth does not automatically solve long-range reasoning. If many distant nodes can influence a target node only through a narrow set of intermediate nodes or edges, their information has to be compressed into fixed-size vectors. This can strongly attenuate long-range signals. This phenomenon is known as <strong>over-squashing</strong> <a class="citation" href="#ref-AlonYahav2020" title="On the Bottleneck of Graph Neural Networks and Its Practical Implications">[2]</a>.</p>
+<p>In our GRaM workshop paper at ICLR 2026, <strong>Effective Resistance Rewiring: A Simple Topological Correction for Over-Squashing</strong>, we study over-squashing as a topology-driven limitation measuring through <strong>effective resistance</strong> and propose a graph rewiring strategy based on this signal. The method adds edges between high-resistance node pairs and removes low-resistance edges when connectivity is preserved. This controlled rewiring improves weak communication pathways while avoiding unnecessary densification.</p>
 <h2>Over-squashing and oversmoothing</h2>
 <p>Deep message passing is affected by two related but distinct phenomena.</p>
-<p><strong>Over-squashing</strong> occurs when information from a rapidly growing receptive field has to pass through structural bottlenecks and be compressed into fixed-size node representations <a class="citation" href="#ref-AlonYahav2020" title="On the Bottleneck of Graph Neural Networks and Its Practical Implications">[2]</a><a class="citation" href="#ref-DiGiovanniEtAl2023WidthDepth" title="On Over-Squashing in Message Passing Neural Networks: The Impact of Width, Depth, and Topology">[4]</a>.</p>
-<p><strong>Oversmoothing</strong> occurs when repeated aggregation makes node embeddings increasingly similar, reducing their discriminative power <a class="citation" href="#ref-LiHanWu2018" title="Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning">[5]</a><a class="citation" href="#ref-RuschEtAl2023OversmoothingSurvey" title="A Survey on Oversmoothing in Graph Neural Networks">[6]</a>.</p>
-<p>These two effects interact. Adding edges can help reduce over-squashing by creating alternative communication paths, but it can also increase mixing and accelerate oversmoothing. Therefore, topology correction should not simply densify the graph. It should improve weak communication pathways while controlling unnecessary mixing <a class="citation" href="#ref-GiraldoEtAl2023Tradeoff" title="On the Trade-off Between Over-Smoothing and Over-Squashing in Deep Graph Neural Networks">[7]</a>.</p>
+<p><strong>Over-squashing</strong> occurs when information from a rapidly growing receptive field has to pass through structural bottlenecks and be compressed into fixed-size node representations <a class="citation" href="#ref-AlonYahav2020" title="On the Bottleneck of Graph Neural Networks and Its Practical Implications">[2]</a><a class="citation" href="#ref-DiGiovanniEtAl2023WidthDepth" title="On Over-Squashing in Message Passing Neural Networks: The Impact of Width, Depth, and Topology">[3]</a>.</p>
+<p><strong>Oversmoothing</strong> occurs when repeated aggregation makes node embeddings increasingly similar, reducing their discriminative power <a class="citation" href="#ref-LiHanWu2018" title="Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning">[4]</a><a class="citation" href="#ref-RuschEtAl2023OversmoothingSurvey" title="A Survey on Oversmoothing in Graph Neural Networks">[5]</a>.</p>
+<p>These two effects interact. Adding edges can help reduce over-squashing by creating alternative communication paths, but it can also increase mixing and accelerate oversmoothing. Therefore, topology correction should not simply densify the graph. It should improve weak communication pathways while controlling unnecessary mixing <a class="citation" href="#ref-GiraldoEtAl2023Tradeoff" title="On the Trade-off Between Over-Smoothing and Over-Squashing in Deep Graph Neural Networks">[6]</a>.</p>
 <h2>Effective resistance as a bottleneck signal</h2>
 <p>To identify structural bottlenecks, we use <strong>effective resistance</strong>.</p>
-<p>Effective resistance comes from the electrical-network analogy: a graph can be viewed as a network where edges act like wires and information can flow through all available paths <a class="citation" href="#ref-DoyleSnell1984" title="Random Walks and Electric Networks">[8]</a><a class="citation" href="#ref-KleinRandic1993" title="Resistance Distance">[9]</a>. If two nodes are connected by many alternative routes, their effective resistance is low. If communication between them depends on narrow bottlenecks, their effective resistance is high.</p>
+<p>Effective resistance comes from the electrical-network analogy: a graph can be viewed as a network where edges act like wires and information can flow through all available paths <a class="citation" href="#ref-DoyleSnell1984" title="Random Walks and Electric Networks">[7]</a><a class="citation" href="#ref-KleinRandic1993" title="Resistance Distance">[8]</a>. If two nodes are connected by many alternative routes, their effective resistance is low. If communication between them depends on narrow bottlenecks, their effective resistance is high.</p>
 <p>This makes effective resistance useful for studying over-squashing because it captures global, multi-path connectivity rather than only shortest-path distance or local neighborhood structure.</p>
 <p>For an undirected connected graph with Laplacian \(L\), the effective resistance between nodes \(i\) and \(j\) is:</p>
-<p>\[ R_{ij} = (e_i - e_j)^\top L^\dagger (e_i - e_j), \]</p>
-<p>where \(L^\dagger\) is the Moore-Penrose pseudoinverse of the graph Laplacian.</p>
-<p>Large values of \(R_{ij}\) indicate weak multi-path connectivity, which is consistent with bottlenecked information transmission. Effective resistance has also been connected to over-squashing through bounds on message-passing influence <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[3]</a>.</p>
+<p>$R_{ij} = (e_i - e_j)^\top L^\dagger (e_i - e_j),$</p>
+<p>where $L^\dagger$ is the Moore-Penrose pseudoinverse of the graph Laplacian.</p>
+<p>Large values of \(R_{ij}\) indicate weak multi-path connectivity, which is consistent with bottlenecked information transmission. Effective resistance has also been connected to over-squashing through bounds on message-passing influence <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[9]</a>.</p>
 <h2>Effective Resistance Rewiring</h2>
 <p>We propose <strong>Effective Resistance Rewiring (ERR)</strong>, a controlled add-remove rewiring strategy.</p>
 <p>At each rewiring step:</p>
@@ -300,7 +336,7 @@ Overlap between edge sets added by different rewiring strategies at budget \(r =
 <p>This graph-level analysis confirms that different rewiring criteria can modify different parts of the graph before training begins.</p>
 <h2>Curvature and resistance operate at different scales</h2>
 <p>Curvature-based rewiring and resistance-based rewiring both aim to address bottlenecks, but they use different signals.</p>
-<p>Curvature focuses on local geometric bottlenecks <a class="citation" href="#ref-ToppingEtAl2022" title="Understanding Over-Squashing and Bottlenecks on Graphs via Curvature">[15]</a>. Effective resistance captures global multi-path connectivity between node pairs <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[3]</a>.</p>
+<p>Curvature focuses on local geometric bottlenecks <a class="citation" href="#ref-ToppingEtAl2022" title="Understanding Over-Squashing and Bottlenecks on Graphs via Curvature">[15]</a>. Effective resistance captures global multi-path connectivity between node pairs <a class="citation" href="#ref-BlackEtAl2023" title="Understanding Oversquashing in GNNs through the Lens of Effective Resistance">[9]</a>.</p>
 <p>Our experiments show that these methods can sometimes obtain similar accuracy, but the learned representations need not be the same. This suggests that the choice of rewiring criterion matters not only for performance, but also for the internal structure of the learned embeddings.</p>
 <h2>Directed graphs</h2>
 <p>For directed graphs, we use a directed generalization of effective resistance <a class="citation" href="#ref-YoungScardoviLeonard2015" title="A New Notion of Effective Resistance for Directed Graphs—Part I: Definition and Properties">[16]</a>. Since directed effective resistance is only well-defined under appropriate connectivity conditions, we restrict pairwise computations to nodes within the same strongly connected component.</p>
@@ -321,13 +357,13 @@ Overlap between edge sets added by different rewiring strategies at budget \(r =
 <ol class="references-list">
 <li id="ref-KipfWelling2017GCN"><span class="ref-index">[1]</span> Kipf, Thomas N., Welling, Max. &quot;Semi-Supervised Classification with Graph Convolutional Networks&quot;. International Conference on Learning Representations (ICLR). 2017. arXiv:1609.02907.</li>
 <li id="ref-AlonYahav2020"><span class="ref-index">[2]</span> Alon, Uri, Yahav, Eran. &quot;On the Bottleneck of Graph Neural Networks and Its Practical Implications&quot;. arXiv preprint arXiv:2006.05205. 2020.</li>
-<li id="ref-BlackEtAl2023"><span class="ref-index">[3]</span> Black, Mitchell, Wan, Zhengchao, Nayyeri, Amir, Wang, Yusu. &quot;Understanding Oversquashing in GNNs through the Lens of Effective Resistance&quot;. International Conference on Machine Learning (ICML). 2023.</li>
-<li id="ref-DiGiovanniEtAl2023WidthDepth"><span class="ref-index">[4]</span> Di Giovanni, Francesco, Giusti, Lorenzo, Barbero, Federico, Luise, Giulia, Liò, Pietro, Bronstein, Michael M.. &quot;On Over-Squashing in Message Passing Neural Networks: The Impact of Width, Depth, and Topology&quot;. International Conference on Machine Learning (ICML). 2023.</li>
-<li id="ref-LiHanWu2018"><span class="ref-index">[5]</span> Li, Qimai, Han, Zhichao, Wu, Xiao-Ming. &quot;Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning&quot;. Proceedings of the Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18). 2018.</li>
-<li id="ref-RuschEtAl2023OversmoothingSurvey"><span class="ref-index">[6]</span> Rusch, T. K., Bronstein, Michael M., Mishra, S.. &quot;A Survey on Oversmoothing in Graph Neural Networks&quot;. arXiv preprint arXiv:2303.10993. 2023.</li>
-<li id="ref-GiraldoEtAl2023Tradeoff"><span class="ref-index">[7]</span> Giraldo, Juan H., Skianis, Konstantinos, Bouwmans, Thierry, Malliaros, Fragkiskos D.. &quot;On the Trade-off Between Over-Smoothing and Over-Squashing in Deep Graph Neural Networks&quot;. Proceedings of the 32nd ACM International Conference on Information and Knowledge Management (CIKM). 2023.</li>
-<li id="ref-DoyleSnell1984"><span class="ref-index">[8]</span> Doyle, Peter G., Snell, J. Laurie. &quot;Random Walks and Electric Networks&quot;. Mathematical Association of America. 1984.</li>
-<li id="ref-KleinRandic1993"><span class="ref-index">[9]</span> Klein, Douglas J., Randi\&#x27;c, Milan. &quot;Resistance Distance&quot;. Journal of Mathematical Chemistry. 1993.</li>
+<li id="ref-DiGiovanniEtAl2023WidthDepth"><span class="ref-index">[3]</span> Di Giovanni, Francesco, Giusti, Lorenzo, Barbero, Federico, Luise, Giulia, Liò, Pietro, Bronstein, Michael M.. &quot;On Over-Squashing in Message Passing Neural Networks: The Impact of Width, Depth, and Topology&quot;. International Conference on Machine Learning (ICML). 2023.</li>
+<li id="ref-LiHanWu2018"><span class="ref-index">[4]</span> Li, Qimai, Han, Zhichao, Wu, Xiao-Ming. &quot;Deeper Insights into Graph Convolutional Networks for Semi-Supervised Learning&quot;. Proceedings of the Thirty-Second AAAI Conference on Artificial Intelligence (AAAI-18). 2018.</li>
+<li id="ref-RuschEtAl2023OversmoothingSurvey"><span class="ref-index">[5]</span> Rusch, T. K., Bronstein, Michael M., Mishra, S.. &quot;A Survey on Oversmoothing in Graph Neural Networks&quot;. arXiv preprint arXiv:2303.10993. 2023.</li>
+<li id="ref-GiraldoEtAl2023Tradeoff"><span class="ref-index">[6]</span> Giraldo, Juan H., Skianis, Konstantinos, Bouwmans, Thierry, Malliaros, Fragkiskos D.. &quot;On the Trade-off Between Over-Smoothing and Over-Squashing in Deep Graph Neural Networks&quot;. Proceedings of the 32nd ACM International Conference on Information and Knowledge Management (CIKM). 2023.</li>
+<li id="ref-DoyleSnell1984"><span class="ref-index">[7]</span> Doyle, Peter G., Snell, J. Laurie. &quot;Random Walks and Electric Networks&quot;. Mathematical Association of America. 1984.</li>
+<li id="ref-KleinRandic1993"><span class="ref-index">[8]</span> Klein, Douglas J., Randi\&#x27;c, Milan. &quot;Resistance Distance&quot;. Journal of Mathematical Chemistry. 1993.</li>
+<li id="ref-BlackEtAl2023"><span class="ref-index">[9]</span> Black, Mitchell, Wan, Zhengchao, Nayyeri, Amir, Wang, Yusu. &quot;Understanding Oversquashing in GNNs through the Lens of Effective Resistance&quot;. International Conference on Machine Learning (ICML). 2023.</li>
 <li id="ref-TongEtAl2020DirGCN"><span class="ref-index">[10]</span> Tong, Z., Liang, Y., Sun, C., Rosenblum, D., Lim, A.. &quot;Directed Graph Convolutional Network&quot;. arXiv preprint arXiv:2004.13970. 2020.</li>
 <li id="ref-ZhaoAkoglu2019PairNorm"><span class="ref-index">[11]</span> Zhao, Lingxiao, Akoglu, Leman. &quot;PairNorm: Tackling Oversmoothing in GNNs&quot;. arXiv preprint arXiv:1909.12223. 2019.</li>
 <li id="ref-alain2016understanding"><span class="ref-index">[12]</span> Alain, Guillaume, Bengio, Yoshua. &quot;Understanding Intermediate Layers Using Linear Classifier Probes&quot;. arXiv preprint arXiv:1610.01644. 2016.</li>
@@ -341,5 +377,27 @@ Overlap between edge sets added by different rewiring strategies at budget \(r =
   <footer class="shell footer">
     <p>Bertran Miquel Oliver · Graph structure, GNNs, and AI for biological data</p>
   </footer>
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const storedTheme = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    if (storedTheme === 'light' || (!storedTheme && prefersLight)) {
+      document.body.classList.add('light-theme');
+    }
+
+    function updateThemeLabel() {
+      const isLight = document.body.classList.contains('light-theme');
+      themeToggle?.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+    }
+
+    updateThemeLabel();
+
+    themeToggle?.addEventListener('click', () => {
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+      updateThemeLabel();
+    });
+  </script>
 </body>
 </html>

@@ -274,6 +274,17 @@ def build() -> None:
       --radius-lg: 16px;
       --max: 900px;
     }}
+    body.light-theme {{
+      color-scheme: light;
+      --bg: #f7fafc;
+      --bg-soft: #eef4f8;
+      --surface: rgba(255,255,255,0.82);
+      --surface-strong: #ffffff;
+      --text: #101827;
+      --muted: #516071;
+      --line: rgba(15,23,42,0.13);
+      --shadow: 0 24px 70px rgba(33,55,85,0.14);
+    }}
     * {{ box-sizing: border-box; }}
     body {{
       margin: 0;
@@ -285,11 +296,15 @@ def build() -> None:
       color: var(--text);
       font-family: Inter, system-ui, sans-serif;
       line-height: 1.7;
+      transition: background 220ms ease, color 220ms ease;
     }}
     a {{ color: var(--accent-strong); }}
     img {{ display: block; max-width: 100%; }}
     .shell {{ width: min(var(--max), calc(100% - 28px)); margin: 0 auto; }}
     .topbar {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       padding: 22px 0 0;
     }}
     .back-link {{
@@ -299,6 +314,27 @@ def build() -> None:
       color: var(--muted);
       text-decoration: none;
       font-weight: 700;
+    }}
+    .theme-toggle {{
+      display: inline-grid;
+      place-items: center;
+      min-width: 64px;
+      height: 42px;
+      padding: 0 13px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.78rem;
+      font-weight: 800;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }}
+    .theme-toggle:hover {{
+      transform: translateY(-2px);
+      background: var(--surface-strong);
+      border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
     }}
     .article {{
       padding: 34px 0 80px;
@@ -398,14 +434,19 @@ def build() -> None:
       border-top: 1px solid var(--line);
     }}
     @media (max-width: 720px) {{
+      .topbar {{
+        gap: 12px;
+      }}
       .article-header {{ padding: 24px; }}
       .row {{ grid-template-columns: 1fr; }}
     }}
   </style>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body>
   <div class="shell topbar">
     <a class="back-link" href="../../index.html">← Back to homepage</a>
+    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle color theme">Theme</button>
   </div>
   <main class="shell article">
     <header class="article-header">
@@ -420,6 +461,28 @@ def build() -> None:
   <footer class="shell footer">
     <p>Bertran Miquel Oliver · Graph structure, GNNs, and AI for biological data</p>
   </footer>
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const storedTheme = localStorage.getItem('theme');
+    const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+
+    if (storedTheme === 'light' || (!storedTheme && prefersLight)) {{
+      document.body.classList.add('light-theme');
+    }}
+
+    function updateThemeLabel() {{
+      const isLight = document.body.classList.contains('light-theme');
+      themeToggle?.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+    }}
+
+    updateThemeLabel();
+
+    themeToggle?.addEventListener('click', () => {{
+      document.body.classList.toggle('light-theme');
+      localStorage.setItem('theme', document.body.classList.contains('light-theme') ? 'light' : 'dark');
+      updateThemeLabel();
+    }});
+  </script>
 </body>
 </html>
 """

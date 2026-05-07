@@ -17,14 +17,9 @@ tags: gnn oversquashing graph-rewiring effective-resistance pairnorm iclr gram
 Graph Neural Networks (GNNs) update node representations by aggregating information from neighboring nodes. This message-passing mechanism gives GNNs a strong inductive bias for relational data, but it also constrains how information can propagate through a graph <d-cite key="KipfWelling2017GCN"></d-cite>.
 
 When useful information is far away, a GNN needs multiple layers to propagate it. However, increasing depth does not automatically solve long-range reasoning. If many distant nodes can influence a target node only through a narrow set of intermediate nodes or edges, their information has to be compressed into fixed-size vectors. This can strongly attenuate long-range signals.
-
 This phenomenon is known as **over-squashing** <d-cite key="AlonYahav2020"></d-cite>.
 
-In our GRaM workshop paper at ICLR 2026, **Effective Resistance Rewiring: A Simple Topological Correction for Over-Squashing**, we study over-squashing as a topology-driven limitation and propose a graph rewiring strategy based on **effective resistance** <d-cite key="BlackEtAl2023"></d-cite>.
-
-The central question is:
-
-> Can we modify graph topology so that long-range information has better routes to propagate through a GNN?
+In our GRaM workshop paper at ICLR 2026, **Effective Resistance Rewiring: A Simple Topological Correction for Over-Squashing**, we study over-squashing as a topology-driven limitation measuring through **effective resistance** and propose a graph rewiring strategy based on this signal. The method adds edges between high-resistance node pairs and removes low-resistance edges when connectivity is preserved. This controlled rewiring improves weak communication pathways while avoiding unnecessary densification.
 
 ## Over-squashing and oversmoothing
 
@@ -46,11 +41,9 @@ This makes effective resistance useful for studying over-squashing because it ca
 
 For an undirected connected graph with Laplacian \(L\), the effective resistance between nodes \(i\) and \(j\) is:
 
-\[
-R_{ij} = (e_i - e_j)^\top L^\dagger (e_i - e_j),
-\]
+$R_{ij} = (e_i - e_j)^\top L^\dagger (e_i - e_j),$
 
-where \(L^\dagger\) is the Moore-Penrose pseudoinverse of the graph Laplacian.
+where $L^\dagger$ is the Moore-Penrose pseudoinverse of the graph Laplacian.
 
 Large values of \(R_{ij}\) indicate weak multi-path connectivity, which is consistent with bottlenecked information transmission. Effective resistance has also been connected to over-squashing through bounds on message-passing influence <d-cite key="BlackEtAl2023"></d-cite>.
 
