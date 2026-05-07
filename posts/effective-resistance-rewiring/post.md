@@ -14,6 +14,7 @@ tags: gnn oversquashing graph-rewiring effective-resistance pairnorm iclr gram
   <strong>arXiv:</strong> <a href="https://arxiv.org/abs/2603.11944" target="_blank">2603.11944</a>
 </div>
 
+<div style="margin-bottom: 1.5em;"></div>
 
 Graph Neural Networks (GNNs) update node representations by aggregating information from neighboring nodes. This message-passing mechanism gives GNNs a strong inductive bias for relational data, but it also constrains how information can propagate through a graph <d-cite key="KipfWelling2017GCN"></d-cite>.
 
@@ -43,7 +44,7 @@ This makes effective resistance useful for studying over-squashing because it ca
 For an undirected connected graph with Laplacian \(L\), the effective resistance between nodes \(i\) and \(j\) is:
 
 $$
-R_{ij} = \left(e_i - e_j\right)^\top L^\dagger \left(e_i - e_j\right),
+R_{ij} = (e_i - e_j)^T L^\dagger (e_i - e_j)
 $$
 
 where $L^\dagger$ is the Moore-Penrose pseudoinverse of the graph Laplacian.
@@ -136,15 +137,15 @@ To study this, we first compare learned representations using **Centered Kernel 
 
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/cka/no_pairnorm/cora.png" class="img-fluid rounded z-depth-1" alt="CKA similarity on Cora without PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/cka/no_pairnorm/cora.png" class="img-fluid rounded z-depth-1" alt="CKA similarity on Cora without PairNorm">
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/cka/pairnorm/cora.png" class="img-fluid rounded z-depth-1" alt="CKA similarity on Cora with PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/cka/pairnorm/cora.png" class="img-fluid rounded z-depth-1" alt="CKA similarity on Cora with PairNorm">
   </div>
 </div>
 
 <div class="caption">
-CKA similarity between last-layer GCN representations with curvature rewiring and resistance-based rewiring strategies on Cora.
+CKA similarity between last-layer GCN representations with curvature rewiring and resistance-based rewiring strategies on Cora. When CKA is close to 1, the two representations are very similar. When CKA is close to 0, the two representations are very different.
 </div>
 
 The CKA analysis shows that different rewiring strategies can produce different learned representations, even when their final accuracies are similar. This suggests that the rewiring criterion affects not only performance, but also the geometry of the learned embedding space.
@@ -155,10 +156,10 @@ To check whether different rewiring criteria actually modify different parts of 
 
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/upset/cora.png" class="img-fluid rounded z-depth-1" alt="UpSet plot of added edges on Cora">
+    <img src="/posts/effective-resistance-rewiring/images/upset/cora.png" class="img-fluid rounded z-depth-1" alt="UpSet plot of added edges on Cora">
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/upset/cornell.png" class="img-fluid rounded z-depth-1" alt="UpSet plot of added edges on Cornell">
+    <img src="/posts/effective-resistance-rewiring/images/upset/cornell.png" class="img-fluid rounded z-depth-1" alt="UpSet plot of added edges on Cornell">
   </div>
 </div>
 
@@ -166,7 +167,7 @@ To check whether different rewiring criteria actually modify different parts of 
 Overlap between edge sets added by different rewiring strategies at budget \(r = 0.1\).
 </div>
 
-These plots support the representation-level observations: different criteria can initialize message passing on different graph topologies, which can lead to different embedding geometries after training.
+These plots support that different rewiring criteria are generating different initial graph topologies, which can lead to different message-passing trajectories and different embedding geometries after training.
 
 After observing that different rewiring strategies can lead to different representations, we next ask whether these representations remain useful for classification.
 
@@ -174,10 +175,10 @@ We use a linear probe on the penultimate-layer embeddings to measure how linearl
 
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring without PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring without PairNorm">
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring without PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring without PairNorm">
   </div>
 </div>
 
@@ -187,10 +188,10 @@ Linear-probe accuracy on Cora without PairNorm, comparing curvature rewiring and
 
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring and PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/curv.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with curvature rewiring and PairNorm">
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring and PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/linear_probe/pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Linear probe on Cora with resistance add-remove rewiring and PairNorm">
   </div>
 </div>
 
@@ -204,10 +205,10 @@ This diagnostic is useful for interpreting the interaction between rewiring, dep
 
 <div class="row">
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/baseline.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora baseline without PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/baseline.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora baseline without PairNorm">
   </div>
   <div class="col-sm mt-3 mt-md-0">
-    <img src="/assets/img/blog/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora with resistance add-remove rewiring without PairNorm">
+    <img src="/posts/effective-resistance-rewiring/images/cosine/no_pairnorm/cora/remove_res.png" class="img-fluid rounded z-depth-1" alt="Cosine similarity on Cora with resistance add-remove rewiring without PairNorm">
   </div>
 </div>
 
